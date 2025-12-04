@@ -58,12 +58,16 @@
 <section id="contact" class="contact">
     <h2>Book a Consultation</h2>
 
-    <form id="contactForm">
-        <input type="text" placeholder="Your Name">
-        <input type="email" placeholder="Email">
-        <input type="text" placeholder="Event Type">
-        <input type="date" placeholder="Event Date">
-        <textarea placeholder="Message"></textarea>
+    <form id="consultation-form">
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <select id="project-type" name="project_type" required>
+            <option value="">Select Project Type</option>
+            <option value="wedding">Wedding</option>
+            <option value="corporate">Corporate Event</option>
+            <option value="milestone">Milestone Celebration</option>
+            <option value="other">Other</option>
+        </select>
+        <textarea id="message" name="message" placeholder="Tell us about your vision..." required></textarea>
         <button class="button" type="submit">Submit</button>
     </form>
 </section>
@@ -71,6 +75,42 @@
 <footer class="footer">
     <p>Design prototype created in Dorik. Coded version built for GitHub Pages.</p>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://nqeaciakclzaxfejxzlj.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xZWFjaWFrY2x6YXhmZWp4emxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NzIyNDIsImV4cCI6MjA4MDQ0ODI0Mn0._KgQ2O3ruYJt3yFeyYphi2EkIFOyAsr7hKCuOw9wpY4";
+
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  document.getElementById("consultation-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const projectType = document.getElementById("project-type").value;
+    const message = document.getElementById("message").value;
+
+    try {
+      const { data, error } = await supabaseClient
+        .from("consultation_requests")
+        .insert([
+          {
+            email: email,
+            project_type: projectType,
+            message: message
+          }
+        ]);
+
+      if (error) throw error;
+
+      alert("Your request has been submitted!");
+      document.getElementById("consultation-form").reset();
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+      console.error("Error:", error);
+    }
+  });
+</script>
 
 <script src="script.js"></script>
 </body>
