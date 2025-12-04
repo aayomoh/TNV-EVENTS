@@ -82,7 +82,11 @@
   const SUPABASE_URL = "https://nqeaciakclzaxfejxzlj.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xZWFjaWFrY2x6YXhmZWp4emxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NzIyNDIsImV4cCI6MjA4MDQ0ODI0Mn0._KgQ2O3ruYJt3yFeyYphi2EkIFOyAsr7hKCuOw9wpY4";
 
-  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: {
+      persistSession: false
+    }
+  });
 
   document.getElementById("consultation-form").addEventListener("submit", async function(e) {
     e.preventDefault();
