@@ -105,15 +105,22 @@
         ]);
 
       if (error) {
-        console.error("Supabase Error:", error.message, error.details);
-        throw error;
+        console.error("Supabase Insert Error:", {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        alert("Submission failed: " + error.message);
+        return;
       }
 
+      console.log("Submission successful:", data);
       alert("Your request has been submitted!");
       document.getElementById("consultation-form").reset();
     } catch (error) {
-      console.error("Full Error Object:", error);
-      alert("Something went wrong: " + (error.message || "Unknown error"));
+      console.error("Client Error:", error);
+      alert("Something went wrong: " + (error.message || "Unknown error. Check browser console."));
     }
   });
 </script>
