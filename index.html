@@ -9,10 +9,6 @@
 
 <body>
 
-<script>
-  window.location.replace("https://impossible-onida-zdkqfk8q.dcms.site/");
-</script>
-
 <header class="header">
     <div class="logo">TNV EVENTS</div>
     <nav>
@@ -108,13 +104,16 @@
           }
         ]);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase Error:", error.message, error.details);
+        throw error;
+      }
 
       alert("Your request has been submitted!");
       document.getElementById("consultation-form").reset();
     } catch (error) {
-      alert("Something went wrong. Please try again.");
-      console.error("Error:", error);
+      console.error("Full Error Object:", error);
+      alert("Something went wrong: " + (error.message || "Unknown error"));
     }
   });
 </script>
