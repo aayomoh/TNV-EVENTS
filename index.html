@@ -67,6 +67,7 @@
             <option value="milestone">Milestone Celebration</option>
             <option value="other">Other</option>
         </select>
+        <input type="text" id="project-budget" name="project_budget" placeholder="Project Budget (optional)">
         <textarea id="message" name="message" placeholder="Tell us about your vision..." required></textarea>
         <button class="button" type="submit">Submit</button>
     </form>
@@ -88,6 +89,7 @@
 
     const email = document.getElementById("email").value;
     const projectType = document.getElementById("project-type").value;
+    const projectBudget = document.getElementById("project-budget").value;
     const message = document.getElementById("message").value;
 
     try {
@@ -97,6 +99,7 @@
           {
             email: email,
             project_type: projectType,
+            project_budget: projectBudget,
             message: message
           }
         ]);
